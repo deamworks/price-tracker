@@ -1,10 +1,16 @@
 import AddProductForm from "@/components/AddProductForm";
-import { Button } from "@/components/ui/button";
-import { LogIn, Rabbit, Shield, Bell } from "lucide-react";
+import AuthButton from "@/components/AuthButton";
+import { createClient } from "@/utils/supabase/server";
+import { Bell, LogIn, Rabbit, Shield, TrendingDown } from "lucide-react";
 import Image from "next/image";
 
-export default function Home() {
-  const user = null;
+
+export default async function Home() {
+  const supabase = await createClient();
+ const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const products = [];
 
   const FEATURES = [
@@ -41,14 +47,16 @@ export default function Home() {
             />
           </div>
 
-          <Button
+          {/* <Button
             variant="default"
             size="sm"
-            className="bg-[#414b9e] hover:bg-[#9792cb] gap-2"
-          >
+            className="bg-[#414b9e] hover:bg-[#9792cb] gap-2">
             <LogIn className="w-4 h-4" />
             Sign In
-          </Button>
+          </Button> */}
+
+          <AuthButton user={user} />
+
         </div>
       </header>
 
@@ -88,6 +96,20 @@ export default function Home() {
           )}
         </div>
       </section>
+
+      {user && products.length === 0 && (
+        <section className="max-w-2xl mx-auto px-4 pb-20 text-center">
+          <div className="bg-white rounded-xl border-2 border-dashed border-[#414b9e] p-12">
+            <TrendingDown className="w-16 h-16 text-[#414b9e] mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              No products yet
+            </h3>
+            <p className="text-gray-600">
+              Add your first product above to start tracking prices!
+            </p>
+          </div>
+        </section>
+      )}
     </main>
   );
 }

@@ -1,5 +1,5 @@
+import { updateSession } from "./utils/supabase/middleware"
 
-import { updateSession } from '@/lib/supabase/proxy'
 
 export async function proxy(request) {
   // update user's auth session

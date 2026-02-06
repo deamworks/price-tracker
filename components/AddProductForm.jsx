@@ -1,14 +1,27 @@
 "use client";
+
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 import { Input } from "./ui/input";
+import AuthModal from "./AuthModal";
 
 const AddProductForm = ({ user }) => {
   const [url, setUrl] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
-  const handleSubmit = async (e) => {}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+
+    // logic เพิ่มสินค้าในอนาคต
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
@@ -41,7 +54,10 @@ const AddProductForm = ({ user }) => {
         </div>
       </form>
 
-      {/* auth modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
     </>
   );
 };
