@@ -74,7 +74,7 @@ export default async function Home() {
 
           <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
             Get notified the moment prices drop.
-            Never overpay again.
+            Never overpay again. <br/> (Sorry, trial unavailable. Firecrawl credits exhausted. 😥)
           </p>
           {/* add product form */}
           <AddProductForm user = { user }/>

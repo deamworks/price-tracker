@@ -44,7 +44,7 @@ const AddProductForm = ({ user }) => {
             type="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="Paste product URL here"
+            placeholder="Paste product URL here..."
             className="bg-white h-12 text-base"
             required
             disabled={loading}
